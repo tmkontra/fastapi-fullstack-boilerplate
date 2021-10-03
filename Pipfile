@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+sqlalchemy = "*"
+psycopg2-binary = "*"
+jinja2 = "*"
+alembic = "*"
+uvicorn = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
+app = {editable = true, path = "."}
+flask-admin = "*"
+aiofiles = "*"
+
+[dev-packages]
+pytest = "*"
+black = "*"
+flake8 = "*"
+autoflake = "*"
+mypy = "*"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

@@ -1,0 +1,10 @@
+version: '3'
+services:
+    db:
+        image: postgres:12
+        environment:
+            - POSTGRES_DB=dbname
+            - POSTGRES_USER=dbuser
+            - POSTGRES_PASSWORD=dbpassword
+        ports:
+            - "54320:5432"
