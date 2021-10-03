@@ -42,6 +42,7 @@ This requires a moderate amount of boilerplate for each route:
 The `RenderTemplate` class in [dependencies.py](../app/dependencies.py) captures this boilerplate, and a bit more:
 
 - The `__call__` interface is the dependency-injection interface. It's invoked when the `RenderTemplate` instance is invoked via `Depends`. This, in turn, returns a partially applied render method, supporting the following usage:
+- The `RenderTemplate` constructor also accepts `**kwargs` and registers these key-value pairs as global variables in all your jinja templates. 
 
 ```python
 from .dependencies import Templates # a pre-configured instance of RenderTemplate
