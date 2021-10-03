@@ -6,7 +6,7 @@
 
 FastAPI is a beautiful framework, but it is missing a key productivity-booster: the admin panel. 
 
-There's a two things to consider when integrating Flask-Admin:
+There's two things to consider when integrating Flask-Admin:
 
 1. Routing
 2. Authentication
@@ -23,7 +23,7 @@ The included `UserAdmin` view implementation demonstrates how to modify the `Mod
 
 Server-side templates is a really efficient way to rapidly build websites. Django makes this super easy. FastAPI has built-in Jinja support, but it's a bit cumbersome out-of-the-box.
 
-The [official docs](https://fastapi.tiangolo.com/advanced/templates/#using-jinja2templates) demonstrate templating:
+The [official FastAPI docs](https://fastapi.tiangolo.com/advanced/templates/#using-jinja2templates) demonstrate templating:
 
 ```python
 templates = Jinja2Templates(directory="templates")
@@ -42,7 +42,6 @@ This requires a moderate amount of boilerplate for each route:
 The `RenderTemplate` class in [dependencies.py](../app/dependencies.py) captures this boilerplate, and a bit more:
 
 - The `__call__` interface is the dependency-injection interface. It's invoked when the `RenderTemplate` instance is invoked via `Depends`. This, in turn, returns a partially applied render method, supporting the following usage:
-- The `RenderTemplate` constructor also accepts `**kwargs` and registers these key-value pairs as global variables in all your jinja templates. 
 
 ```python
 from .dependencies import Templates # a pre-configured instance of RenderTemplate
@@ -52,7 +51,9 @@ async def read_item(id: str, render: Depends(Templates)):
     return render("item.html", {"id": id})
 ```
 
-This is equivalent to the previous code block. The code re-use is amplified by class-based views (see below).
+This route is equivalent to the previous code block. The code re-use is amplified by class-based views (see below).
+
+- The `RenderTemplate` constructor also accepts `**kwargs` and registers these key-value pairs as global variables in all your jinja templates. 
 
 
 ## Class-Based Views
