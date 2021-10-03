@@ -4,9 +4,23 @@
 
 1. All the goodness of modern, async FastAPI
 2. Seamless Jinja2 templating, just like Flask
-3. SQLAlchemy ORM and Alembic migrations
+3. SQLAlchemy ORM and Alembic migrations (PostgreSQL)
 4. Flask-Admin plugged right in
 5. Pipenv for python dependency management
+
+Explore the [full docs here](./docs/index.md)
+
+## Get Started
+
+1. Copy `.env.example` to `.env` (or create your own)
+2. `docker-compose up -d` to start the database
+3. `pipenv shell`
+4. `uvicorn --factory app.main:create_app --reload --port=8080`
+
+### Configuration
+
+ - Change the database configuration/credentials in `.env` and `docker-compose.yaml`
+ - Set `DEBUG_ADMIN=1` to disable the authorization for the admin panel
 
 ## Why?
 
