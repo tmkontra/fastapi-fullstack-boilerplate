@@ -1,2 +1,2 @@
-from .cbv import cbv
-from .crud import Model as Model, PkModel, reference_col
+from .cbv import cbv  # noqa
+from .crud import Model, PkModel, reference_col  # noqa

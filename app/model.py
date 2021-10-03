@@ -24,7 +24,7 @@ class Timestamps(Model):
         return self.created_at.date()
 
 
-class User(PkModel, Base):
+class User(PkModel, Timestamps, Base):
     __tablename__ = "user"
 
     email = Column(String, unique=True, index=True, nullable=False)
@@ -33,7 +33,7 @@ class User(PkModel, Base):
     is_admin = Column(Boolean, default=False, nullable=False)
 
 
-class UserSession(PkModel, Base):
+class UserSession(PkModel, Timestamps, Base):
     __tablename__ = "user_session"
 
     user_id = reference_col("user")
