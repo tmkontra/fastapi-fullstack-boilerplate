@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, HTTPException, status, Response
 from fastapi.middleware.wsgi import WSGIMiddleware
 import flask
 import flask_admin
-from wtforms.fields import TextField
+from wtforms.fields import StringField
 from wtforms import validators
 from flask_admin.contrib.sqla import ModelView
 
@@ -19,7 +19,7 @@ class UserAdmin(ModelView):
     form_excluded_columns = [
         "password_hash",
     ]
-    form_extra_fields = {"Password": TextField("Password", [validators.DataRequired()])}
+    form_extra_fields = {"Password": StringField("Password", [validators.DataRequired()])}
 
     def on_model_change(self, form, model: User, is_created):
         hashed = user_service.hash_password(form["Password"].data)

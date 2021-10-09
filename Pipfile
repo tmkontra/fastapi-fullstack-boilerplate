@@ -11,8 +11,7 @@ jinja2 = "*"
 alembic = "*"
 uvicorn = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
-app = {editable = true, path = "."}
-flask-admin = "*"
+flask-admin = "==1.5.8"
 aiofiles = "*"
 
 [dev-packages]

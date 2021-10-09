@@ -4,9 +4,10 @@ import sqlalchemy
 
 from . import settings
 from .admin import admin_app
-from .database import Session
-from .dependencies import get_db_session, Templates, Render
+from .database import Session, get_db_session
+from .dependencies import get_db, Templates, Render
 from .ext import cbv
+from .model import User
 
 
 web = APIRouter()
@@ -18,8 +19,12 @@ class WebRoutes:
 
     @web.get("/")
     def home(deps):
+        # example of manual db session
+        with get_db_session() as db:
+            user_count = db.query(User).count()
         context = {
             "message": "Hello",
+            "user_count": user_count,
         }
         return deps.render("home.html", context)
 
@@ -29,7 +34,8 @@ api = APIRouter()
 
 @cbv(api)
 class APIRoutes:
-    db: Session = Depends(get_db_session)
+    # example of injected db session
+    db: Session = Depends(get_db)
 
     @api.get("/")
     def index(deps):

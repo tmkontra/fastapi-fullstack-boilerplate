@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 from typing import Callable
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -18,3 +19,13 @@ SessionLocal: Callable[..., Session] = sessionmaker(
 )
 
 Base = declarative_base()
+
+@contextmanager
+def get_db_session():
+    """Starts a database session as a context manager.
+    """
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
