@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, APIRouter
 from fastapi.staticfiles import StaticFiles
+from fastapi_static_digest import StaticDigest
 import sqlalchemy
 
 from . import settings
@@ -46,11 +47,14 @@ class APIRoutes:
 
 def create_app():
     app = FastAPI(
-        title=settings.APP_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
+        title=settings.APP_NAME, 
+        openapi_url=f"{settings.API_V1_STR}/openapi.json"
     )
+    static_digest = StaticDigest(source_dir=settings.STATIC_DIR)
+    static_files = StaticFiles(directory=static_digest.directory)
     app.include_router(web, include_in_schema=False)
     app.include_router(api, prefix="/api")
     app.mount(path="/admin", app=admin_app)
-    app.mount("/static", StaticFiles(directory=settings.STATIC_DIR), name="static")
+    app.mount("/static", static_files, name="static")
 
     return app

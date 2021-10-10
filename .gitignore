@@ -1,5 +1,6 @@
 ### CUSTOM
 /.vscode
+/app/static/_digest
 
 ### PYTHON
 # Byte-compiled / optimized / DLL files
