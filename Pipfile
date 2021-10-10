@@ -13,6 +13,7 @@ uvicorn = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
 flask-admin = "==1.5.8"
 aiofiles = "*"
+fastapi-static-digest = "~=1.1.0"
 
 [dev-packages]
 pytest = "*"
