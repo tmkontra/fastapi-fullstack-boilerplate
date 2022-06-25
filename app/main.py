@@ -3,26 +3,33 @@ from fastapi.staticfiles import StaticFiles
 from fastapi_static_digest import StaticDigest
 import sqlalchemy
 
+from fastapi_jinja_utils import Jinja2TemplatesDependency, Renderable
+
 from . import settings
 from .admin import admin_app
 from .database import Session, get_db_session
-from .dependencies import get_db, Templates, Render
+from .dependencies import get_db
 from .ext import cbv
 from .model import User
 
 
 web = APIRouter()
 
+Templates = Jinja2TemplatesDependency(template_dir=settings.TEMPLATE_DIR)
+
 
 @cbv(web)
 class WebRoutes:
-    render: Render = Depends(Templates)
+    render: Renderable = Depends(Templates)
 
     @web.get("/")
     def home(deps):
         # example of manual db session
-        with get_db_session() as db:
-            user_count = db.query(User).count()
+        try:
+            with get_db_session() as db:
+                user_count = db.query(User).count()
+        except:
+            user_count = "<no db connection>"
         context = {
             "message": "Hello",
             "user_count": user_count,

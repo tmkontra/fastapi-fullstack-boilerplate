@@ -1,15 +1,10 @@
-from functools import partial
 import logging
-from typing import Callable, Optional
-import warnings
+from typing import Optional
 
-from fastapi import Request, Response, Cookie, HTTPException, status, Depends
-from fastapi.templating import Jinja2Templates
+from fastapi import Request, Cookie, HTTPException, status, Depends
 
 from .database import get_db_session as _get_db_session
 from .model import User, UserSession
-from . import settings
-
 
 logger = logging.getLogger(__name__)
 _warned = False
@@ -89,28 +84,3 @@ def require_admin(user: User = Depends(require_login)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     else:
         return user
-
-
-Render = Callable[[str, dict], Response]
-
-
-class RenderTemplate:
-    def __init__(self, template_dir=None, **globals):
-        template_dir = template_dir or settings.TEMPLATE_DIR
-        self._templates = Jinja2Templates(directory=template_dir)
-        self._set_globals(self._templates, globals)
-
-    @staticmethod
-    def _set_globals(template_cls, globals: dict):
-        for key, value in globals.items():
-            template_cls.env.globals[key] = value
-
-    def _render(self, request, name, context):
-        context.update({"request": request})
-        return self._templates.TemplateResponse(name, context)
-
-    def __call__(self, request: Request) -> Render:
-        return partial(self._render, request)
-
-
-Templates = RenderTemplate(APP_NAME=settings.APP_NAME)

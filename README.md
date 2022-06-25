@@ -15,7 +15,7 @@ Explore the [full docs here](./docs/index.md)
 1. Copy `.env.example` to `.env` (or create your own)
 2. `docker-compose up -d` to start the database
 3. `pipenv shell`
-4. `uvicorn --factory app.main:create_app --reload --port=8080`
+4. `FASTAPI_STATICDIGEST_RELOAD=1 uvicorn app.main:create_app --port=8080 --reload`
 
 ### Configuration
 

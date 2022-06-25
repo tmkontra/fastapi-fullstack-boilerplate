@@ -3,17 +3,23 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://test.pypi.org/simple/"
+verify_ssl = true
+name = "testpypi"
+
 [packages]
-fastapi = "*"
+fastapi = "0.78.0"
 sqlalchemy = "*"
 psycopg2-binary = "*"
-jinja2 = "*"
+jinja2 = "3.1.2"
 alembic = "*"
 uvicorn = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
-flask-admin = "==1.5.8"
+flask-admin = "==1.6.0"
 aiofiles = "*"
 fastapi-static-digest = "~=1.1.0"
+fastapi-jinja-utils = {version = "*", index = "testpypi"}
 
 [dev-packages]
 pytest = "*"
