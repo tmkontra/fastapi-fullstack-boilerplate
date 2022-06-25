@@ -19,7 +19,7 @@ passlib = {extras = ["bcrypt"], version = "*"}
 flask-admin = "==1.6.0"
 aiofiles = "*"
 fastapi-static-digest = "~=1.1.0"
-fastapi-jinja-utils = {version = "*", index = "testpypi"}
+fastapi-jinja-utils = {version = "~=1.0"}
 fastapi-utils = "*"
 
 [dev-packages]
