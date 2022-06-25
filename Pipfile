@@ -20,6 +20,7 @@ flask-admin = "==1.6.0"
 aiofiles = "*"
 fastapi-static-digest = "~=1.1.0"
 fastapi-jinja-utils = {version = "*", index = "testpypi"}
+fastapi-utils = "*"
 
 [dev-packages]
 pytest = "*"

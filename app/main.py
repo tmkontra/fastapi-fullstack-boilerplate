@@ -1,17 +1,15 @@
+import sqlalchemy
 from fastapi import FastAPI, Depends, APIRouter
 from fastapi.staticfiles import StaticFiles
-from fastapi_static_digest import StaticDigest
-import sqlalchemy
-
 from fastapi_jinja_utils import Jinja2TemplatesDependency, Renderable
+from fastapi_static_digest import StaticDigest
+from fastapi_utils.cbv import cbv
 
 from . import settings
 from .admin import admin_app
 from .database import Session, get_db_session
 from .dependencies import get_db
-from .ext import cbv
 from .model import User
-
 
 web = APIRouter()
 
