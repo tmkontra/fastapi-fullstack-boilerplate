@@ -14,15 +14,12 @@ Explore the [full docs here](./docs/index.md)
 
 1. Copy `.env.example` to `.env` (or create your own)
 2. Change the database configuration/credentials in `.env` and `docker-compose.yaml`
-3. Create a new environment and install dependencies:
-   `python -m venv .venv && pipenv install`
-4. Use env:
-   `pipenv shell`
-5. Start the database:
-   `docker-compose up -d`
-6. Run migrations:
-   `alembic upgrade head`
-7. `FASTAPI_STATICDIGEST_RELOAD=1 uvicorn app.main:create_app --port=8080 --reload`
+3. Create a random secret key and put in your env's SECRET_KEY: `openssl rand -hex 32`
+4. Create a new environment and install dependencies: `python -m venv .venv && pipenv install`
+5. Use venv and load .env vars: `pipenv shell`
+6. Start the database: `docker-compose up -d`
+7. Run migrations: `alembic upgrade head`
+8. `FASTAPI_STATICDIGEST_RELOAD=1 uvicorn app.main:create_app --port=8080 --reload`
 
 PS: Set `DEBUG_ADMIN=1` to disable the authorization for the admin panel
 
