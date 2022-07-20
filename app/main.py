@@ -1,3 +1,4 @@
+from os import environ
 import sqlalchemy
 from fastapi import FastAPI, Depends, APIRouter
 from fastapi.staticfiles import StaticFiles
@@ -31,6 +32,7 @@ class WebRoutes:
         context = {
             "message": "Hello",
             "user_count": user_count,
+            "APP_NAME": settings.APP_NAME,
         }
         return deps.render("home.html", context)
 
@@ -55,11 +57,17 @@ def create_app():
         title=settings.APP_NAME, 
         openapi_url=f"{settings.API_V1_STR}/openapi.json"
     )
-    static_digest = StaticDigest(source_dir=settings.STATIC_DIR)
-    static_files = StaticFiles(directory=static_digest.directory)
+    
+    if not environ.get('DEV'):
+        static_digest = StaticDigest(source_dir=settings.STATIC_DIR)
+        static_files = StaticFiles(directory=static_digest.directory)
+    else:
+        static_files = StaticFiles(directory=settings.STATIC_DIR)
+
     app.include_router(web, include_in_schema=False)
     app.include_router(api, prefix="/api")
     app.mount(path="/admin", app=admin_app)
     app.mount("/static", static_files, name="static")
 
     return app
+
